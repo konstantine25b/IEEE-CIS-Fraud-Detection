@@ -230,6 +230,22 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 ახლა გავაკეთოთ პირველი ყველაზე მარტივი ექსპერიმენტი logistic_regression-ით.
 
+დავალოუდე მოდელი და შემდეგ მისი პრეპროცესინგის pipeline და ამის მერე 
+უკვე logistic regression გავუშვი
+
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.98      0.80      0.88    113975
+           1       0.10      0.60      0.17      4133
+
+    accuracy                           0.79    118108
+   macro avg       0.54      0.70      0.53    118108
+weighted avg       0.95      0.79      0.86    118108
+
+ნუ საკმაოდ დიდი სხვაობაა 0 -ებს შედარებით უკეთ აფრედიქთებს precision მაღალი აქვს, მაგრამ ერთი რამე რაც არ გამოგვრჩა და არ გაგვითვალისწინებია არის რომ ძალიან ბევრი 0 -ია და ძალიან ცოტა 1 ანუ აქ დიდი დისბალანსია ამიტომ მოდელს უჭირს დაფრედიქთება. უნდა მოვიფიქრო სხვა რამე.
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/1/runs/bc479b234c0948b59cbfab988fd279ac
 
 
 
