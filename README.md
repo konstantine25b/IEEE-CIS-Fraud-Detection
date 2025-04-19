@@ -224,10 +224,13 @@ Selected features from identity dataset: 10 (20.0%)
 Selected features from transaction dataset: 40 (80.0%)
 The identity flag 'has_identity_data' was NOT selected as an important feature.
 
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/0?searchFilter=&orderByKey=attributes.start_time&orderByAsc=false&startTime=ALL&lifecycleFilter=Active&modelVersionFilter=All+Runs&datasetsFilter=W10%3D - აქ არის პრეპროცესინგის ექსპერიმენტი
 
 კაი ახლა გვაქ პრეპროცესინგის ექსპერიმენტი mlflow-ზე
 
 ახლა გავაკეთოთ პირველი ყველაზე მარტივი ექსპერიმენტი logistic_regression-ით.
+
+
 
 
 
