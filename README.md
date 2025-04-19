@@ -156,7 +156,7 @@ Length: 168, dtype: float64
 
 მერე ისევ გავყოთ და 20%NA იანები ამოვაგდოთ იდენთითიდან და 60%NA ზე მეტიანები ტრანსაცტიონიდან
 
-ვცადე ჯერ შეერტება და მერე დაყოფა identity და transactio ად და მერე NA-ების დამუშაბვება მარა ჯოინის შემდეგ ძალიან აიწია identity-ში ამიტომ ისევ ჯერ წავშალოთდა მერე დავაჯოინოთ ჯობია.
+ვცადე ჯერ შეერთება და მერე დაყოფა identity და transactio ად და მერე NA-ების დამუშაბვება მარა ჯოინის შემდეგ ძალიან აიწია identity-ში ამიტომ ისევ ჯერ წავშალოთდა მერე დავაჯოინოთ ჯობია.
 
 ცალ ცალკე გამოვიდა და ასეთი შედეგი გვაქ :
 
@@ -248,7 +248,33 @@ weighted avg       0.95      0.79      0.86    118108
 https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/1/runs/bc479b234c0948b59cbfab988fd279ac
 
 
+იქიდან გამომდინარე რომ logistic regression- ით უკეთესი შედეგის დადებასც მგონია შესაძლებელი ამიტომ კიდე ვცდი
+ეხა regularization , scaling, kfold-ს დავამატებ და ვნახოთ რამდენად შეიცვლება შედეგი.
+
+logistic regression_2 ამ ფაილშიც იგივე ნაიურად წამოვიღებ დატას როგორც logistic regression , მაგრამ დავამუშავებ ასე:
+
+დავამატე StandardScaler, StratifiedKFold(n_splits=5, shuffle=True, random_state=42), ასევე გვაქვს რეგულარიზაციის პარამეტრები.
+
+ეხა დავფტოთ Fitting 5 folds for each of 6 candidates, totalling 30 fits
+
+მეტი აღარ ვქენი იმიტორო ძაან დროში იწელება. ამასაც 15-20 წუთი მოუნდა და ისე 480 fit -ის გაკეთებას ვაპირებდი კიდე კაი არ გავაკეთე თორე 4 საათი უნდა ყოფილიყო ამაზე გაშვებული.
+Best parameters: {'classifier__C': 10.0, 'classifier__class_weight': 'balanced', 'classifier__penalty': 'l2', 'classifier__solver': 'liblinear'}
+Best cross-validation score (Average Precision): 0.0755
+
+ხოლო საბოლოოდ:
 
 
+Classification Report:
+              precision    recall  f1-score   support
 
+           0       0.98      0.78      0.87    113975
+           1       0.10      0.65      0.17      4133
+
+    accuracy                           0.77    118108
+   macro avg       0.54      0.71      0.52    118108
+weighted avg       0.95      0.77      0.84    118108
+
+ხოო ახლა წინა და ეს logistic_regression-ები რომ შევადაროთ:
+
+recall-ში მეორე ჯობია და დანარჩენებში fraud detection-ში კონკრეტულად თანაბარია ამიტომ მეორე ანუ ეს მოდელი ჯობია წინას.
 
