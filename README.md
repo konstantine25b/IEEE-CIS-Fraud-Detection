@@ -225,6 +225,11 @@ Selected features from transaction dataset: 40 (80.0%)
 The identity flag 'has_identity_data' was NOT selected as an important feature.
 
 
+კაი ახლა გვაქ პრეპროცესინგის ექსპერიმენტი mlflow-ზე
+
+ახლა გავაკეთოთ პირველი ყველაზე მარტივი ექსპერიმენტი logistic_regression-ით.
+
+
 
 
 
