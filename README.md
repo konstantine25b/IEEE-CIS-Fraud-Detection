@@ -204,6 +204,26 @@ Merged test dataset shape: (118108, 272)
 ამიტომ ეხა კორელაციები უნდა მოვაშოროთ და ამის მერე RFE
 კორელაციის ფილტრი 90% ზე 
 ხოლო RFE 50 feature
+Removing 113 highly correlated features...
+Dataset shape after correlation removal - train: (472432, 160)
+Dataset shape after correlation removal - test: (118108, 160)
+ეს კორელაციამ კარგად მოაშოეა 113 სვეტი
+
+ამის მერე RFE იყო გაშვებული ასე 1 საათი იჩალიჩა 50 სვეტამდე დაყვანამდე და დაიყვანა
+
+--- Final Dataset Information ---
+Final train dataset shape: (472432, 50)
+Final test dataset shape: (118108, 50)
+Features reduced from 273 to 50
+
+--- Feature Selection completed successfully ---
+Final dataset has 50 features after preprocessing and feature selection.
+
+--- Detailed Analysis of Selected Features ---
+Selected features from identity dataset: 10 (20.0%)
+Selected features from transaction dataset: 40 (80.0%)
+The identity flag 'has_identity_data' was NOT selected as an important feature.
+
 
 
 
