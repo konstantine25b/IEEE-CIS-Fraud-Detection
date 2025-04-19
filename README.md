@@ -158,6 +158,52 @@ Length: 168, dtype: float64
 
 ვცადე ჯერ შეერტება და მერე დაყოფა identity და transactio ად და მერე NA-ების დამუშაბვება მარა ჯოინის შემდეგ ძალიან აიწია identity-ში ამიტომ ისევ ჯერ წავშალოთდა მერე დავაჯოინოთ ჯობია.
 
+ცალ ცალკე გამოვიდა და ასეთი შედეგი გვაქ :
+
+
+--- Column Categorization ---
+Identity numeric columns: 9
+Identity low cardinality categorical columns: 10
+Identity high cardinality categorical columns: 2
+Transaction numeric columns: 211
+Transaction low cardinality categorical columns: 11
+Transaction high cardinality categorical columns: 2
+
+--- Processed Data Information ---
+Processed identity train data shape: (115658, 32)
+Processed identity test data shape: (28575, 32)
+Processed transaction train data shape: (472432, 240)
+Processed transaction test data shape: (118108, 240)
+Identity processing time: 1.30 seconds
+Transaction processing time: 13.95 seconds
+
+და საბოლოოდ
+
+--- Checking for Remaining NaN Values ---
+Identity train NaN count: 0
+Transaction train NaN count: 0
+
+ეხა ვცდი დამერჯვას მარა 
+--- Checking for NAs in Merged Datasets ---
+Merged train dataset shape: (472432, 272)
+Merged test dataset shape: (118108, 272)
+NAs in merged train dataset: 11416768
+NAs in merged test dataset: 2865056
+
+ოოოო ეს ძააან ბევრი na
+ამიტო სხვა გზა გვინდა იმის მაგივრად რომ 0 ებით ანდ ყველაზე ხშირებით შევავსოთ ვფიქრობ გაუსის ან სხვა განაწილებით შევავსო.
+Iterative imputation with Bayesian Ridge for numeric features
+MICE (Multiple Imputation by Chained Equations) for categorical features
+
+ნუ ვცადე მარა Iterative imputation - არის საშიშიო გამოყენება უსაფროთხო არარიო ამიტო ნუმერიქალებში საშუალო იყოს.და კატეგორიულშიც ანალოგიურად.
+
+ესე გამოვიდა და ახლა ასეთი სიტუაცია გვაქ:
+Merged train dataset shape: (472432, 272)
+Merged test dataset shape: (118108, 272)
+
+ამიტომ ეხა კორელაციები უნდა მოვაშოროთ და ამის მერე RFE
+კორელაციის ფილტრი 90% ზე 
+ხოლო RFE 50 feature
 
 
 
