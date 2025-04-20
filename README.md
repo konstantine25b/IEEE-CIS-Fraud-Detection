@@ -314,6 +314,7 @@ logistic_regression ზე ბევრად უფრო კარგად �
 precision  0.05 ით გავაუმჯობესეთ, recall 0.12  ხოლო f1-score 0.08 ით 
 
 ნუ decision tree-იც ცუდად მუშაობს მაგრამ ბევრად ჯობია წინებს.
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/3/runs/f54a6bf3c1744e4ea742ff8fc3e647d9
 
 ახლა უკვე გადავიდეთ მოდელებზე რომნლებიც არადაბალანსებულ მონაცემებს ბევრად უკეთ უმკლავდებიან.
 დავიწყთ random forest-ით ანუ გამოვიყენოთ bagging მიდგომა
