@@ -51,6 +51,8 @@ id_12 - id_38
 
 მარა ვფიქრობ აქამდე რომ ჯერ დატა დავამუშავო რო მერე ცალ ცალკე გავტესტო ყველაზე ამიტო შემქმენი IEEE-CIS Fraud Detection_PreProcessing- სადაც პრე პროცესინგი იქნება.
 
+# Pre-Processing experiment
+
 ფაილი : ieee-cis-fraud-detection-preprocessing.ipynb
 
 transactions - აქვს  394 columns ხოლო identity-ს 41 columns.
@@ -230,6 +232,8 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 კაი ახლა გვაქ პრეპროცესინგის ექსპერიმენტი mlflow-ზე
 
+# logistic_regression experiment
+
 ახლა გავაკეთოთ პირველი ყველაზე მარტივი ექსპერიმენტი logistic_regression-ით.
 
 ფაილი : ieee-cis-fraud-logistic_regression.ipynb
@@ -251,9 +255,11 @@ weighted avg       0.95      0.79      0.86    118108
 ნუ საკმაოდ დიდი სხვაობაა 0 -ებს შედარებით უკეთ აფრედიქთებს precision მაღალი აქვს, მაგრამ ერთი რამე რაც არ გამოგვრჩა და არ გაგვითვალისწინებია არის რომ ძალიან ბევრი 0 -ია და ძალიან ცოტა 1 ანუ აქ დიდი დისბალანსია ამიტომ მოდელს უჭირს დაფრედიქთება. უნდა მოვიფიქრო სხვა რამე.
 https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/1/runs/bc479b234c0948b59cbfab988fd279ac
 
+# logistic_regression experiment 2
 
 იქიდან გამომდინარე რომ logistic regression- ით უკეთესი შედეგის დადებასც მგონია შესაძლებელი ამიტომ კიდე ვცდი
 ეხა regularization , scaling, kfold-ს დავამატებ და ვნახოთ რამდენად შეიცვლება შედეგი.
+
 
 ფაილი : ieee-cis-fraud-logistic_regression-2.ipynb
 
@@ -283,6 +289,8 @@ weighted avg       0.95      0.77      0.84    118108
 ხოო ახლა წინა და ეს logistic_regression-ები რომ შევადაროთ:
 
 recall-ში მეორე ჯობია და დანარჩენებში fraud detection-ში კონკრეტულად თანაბარია ამიტომ მეორე ანუ ეს მოდელი ჯობია წინას.
+
+# decision-tree experiment 
 
 ახლა გავტესტოთ decision tree.
 
@@ -315,6 +323,8 @@ precision  0.05 ით გავაუმჯობესეთ, recall 0.12  ხ
 
 ნუ decision tree-იც ცუდად მუშაობს მაგრამ ბევრად ჯობია წინებს.
 https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/3/runs/f54a6bf3c1744e4ea742ff8fc3e647d9
+
+# random forest experiment 
 
 ახლა უკვე გადავიდეთ მოდელებზე რომნლებიც არადაბალანსებულ მონაცემებს ბევრად უკეთ უმკლავდებიან.
 დავიწყთ random forest-ით ანუ გამოვიყენოთ bagging მიდგომა
@@ -356,6 +366,9 @@ bagging- ვარიაციის შესამცირებლად ხ
 precission -იყოს მაღალი და ანუ რაც შეიძლება შევამციროთ bias. მაგრამ შეიძლება ბევრი outlier გვქონოდა და ამას
 random forest-ის უპირატესობა გამოეწვია. მარა მაინც boosting მგონია რო უკეთ იმუშაბვებს რადგან bias-ის შემცირებაა გვინდა.
 
+
+# adaboost experiment 
+
 კაი ახლა გავტესტოთ adaboost:
 იგივენ ნაირი პრე პროცესინგი, 
 ეს კიდე ჰიპერ პარამეტრები:
@@ -382,6 +395,9 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 ფაილი: IEEE-CIS-Fraud-Detection_adaboost.ipynb
 
+
+# xgboost experiment 1
+
 დავიწყოთ xgboost-ის გატესტვა
 იგივე ნაირად დავამუშავეთ მონაცემები
 param_grid = {
@@ -404,6 +420,8 @@ Classification Report:
 weighted avg       0.97      0.98      0.97    118108 
 
 ნუ აქ precission ძალიან კარგი აქვს, მაგრამ recall დაუვარდა შესაბამისად დაბალი გამოუვიდა f1 score- ეს მოდელი საუკეთესოა ჯერჯერობით თუ ჩვენ precission გვაინტერესებს.
+
+# xgboost experiment 2
 
 მგონია რომ გაუმჯობესება შეიძლება მიტომ უფრო მეტ ჰიპერპარამეტრზე გავტესტავ ახლა
 ვცადოთ ასეთით 
@@ -430,7 +448,9 @@ weighted avg       0.96      0.92      0.93    118108
 ამ ცდამ უფრო გააუარესა ამიტომ უფრო უკეთესი გზა იქნებ იყოს 
 ვცადოთ კიდევ:
 
-# Define hyperparameter grid focused on improving precision for minority class
+# xgboost experiment 3
+
+### Define hyperparameter grid focused on improving precision for minority class
 param_grid = {
     'classifier__n_estimators': [200],  # Reduced options
     'classifier__max_depth': [4, 6],  # Reduced options
@@ -479,3 +499,84 @@ random forest-მა
  ჯერჯერრობით საუკეთესოა ბოლო მოდელი 
    1       0.68      0.60      0.64      4133
    ამ მოდელს recall და  precission დაბალანსებულად აქვთ რაც იწვევს დანარჩენ მოდელებზე უკეთეს f1 score-ს.
+
+
+
+
+# LETS TRY ONLY TRANSACTION DB
+
+კაი ნუ დამერჯვით გავტესტეტ და კიდე გავტესტავ სხვანაირად მაქვს რაღაც იდეები და გავაკეთებ მერე მაგრამ ჯერ მინდა
+ვცადრო მხოლოდ transaction -ის ცხრილის გამოყენება ოღონდ აქ პირდაპირ xgboost-ზე გავტესტავ რადგან ვნახეთ რომ 
+ყველაზე კარგი შედეგი სწორედ მას ქონდა.
+
+კაი დავიოწყოთ :
+# Fraud_Detection_Transaction_Only
+
+For numerical columns, fill with median
+
+ხოლო კატეგორიულებში ვისაც 60% ზე მეტი მისსინგ ქონდა წავშალეთ და დანარჩნებში ყველაზე ხშირით შევავსეთ.
+preprocess-ინგის შემდეგ მივიღეთ ასეთი სიტუაცია:
+
+ამის მერე future engineering
+
+--- Feature Selection: Correlation Filter ---
+Selected 96 features with correlation > 0.05
+
+ამის მერერ RFE და აიურჩა 50 ცალუ feature
+da ბოლოს დავატრეინინგე
+param_grid = {
+    'classifier__n_estimators': [100, 200],
+    'classifier__max_depth': [4, 6],
+    'classifier__learning_rate': [0.01, 0.05],
+    'classifier__scale_pos_weight': [25, 35],
+    'classifier__min_child_weight': [3],
+    'classifier__subsample': [0.8],
+    'classifier__colsample_bytree': [0.8],
+    'classifier__gamma': [0.1],
+    'classifier__reg_alpha': [0.1],
+    'classifier__reg_lambda': [1.0]
+}
+
+--- Model Evaluation ---
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98    113975
+           1       0.53      0.37      0.43      4133
+
+    accuracy                           0.97    118108
+   macro avg       0.75      0.68      0.71    118108
+weighted avg       0.96      0.97      0.96    118108
+
+ეს მოდელინ საკმაოდ სუსტია სხვა კომპლექსურ მოდელებთან შედარბით.  მარა მაინც აქ ცოტა ჰიპერ პარამეტრი იყო ამიტო მოდი კიდე ვცდი უფრო მეტი ჰიპერ პატამეტრით.
+
+# Fraud_Detection_Transaction_Only 2
+
+param_grid = {
+    'classifier__n_estimators': [100, 200],
+    'classifier__max_depth': [4, 6, 8],
+    'classifier__learning_rate': [0.01, 0.05],
+    'classifier__scale_pos_weight': [25, 35],  # To handle class imbalance
+    'classifier__min_child_weight': [1, 3],
+    'classifier__subsample': [0.8],
+    'classifier__colsample_bytree': [0.8],
+    'classifier__gamma': [0, 0.1],
+    'classifier__reg_alpha': [0, 0.1],
+    'classifier__reg_lambda': [1.0]
+}
+  precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98    113975
+           1       0.55      0.40      0.47      4133
+
+    accuracy                           0.97    118108
+   macro avg       0.77      0.70      0.72    118108
+weighted avg       0.96      0.97      0.97    118108
+
+ეს წინასთან შედარებით უკეთესია მაგრამ აშკარად identity ცხრილმა ბევრად უფრო კარგი მოდელები გამოიყვანა
+
+
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/9/runs/7b4b0905b5464487a50094ef5398a509
+
+ფაილი:IEEE-CIS Fraud Detection_Transaction_Only.ipynb
+
+ნუ ამით დავასტულოთ მხოლოდ transactions db ის გამოყენება
