@@ -384,3 +384,98 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 დავიწყოთ xgboost-ის გატესტვა
 იგივე ნაირად დავამუშავეთ მონაცემები
+param_grid = {
+    'classifier__n_estimators': [50, 100],  # Number of boosting rounds
+    'classifier__max_depth': [3, 6],  # Max depth of trees
+    'classifier__learning_rate': [0.1],  # Learning rate
+    'classifier__scale_pos_weight': [1, 10]  # Weight of positive class (for imbalanced data)
+}
+cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=42)
+ამის შემთხვევაში ისევ ჰიპერპარამეტრები პლიუს kfold ანუ 24 ცალი fit მოუწევს ამ შემთხვევაში
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99    113975
+           1       0.88      0.37      0.52      4133
+
+    accuracy                           0.98    118108
+   macro avg       0.93      0.68      0.75    118108
+weighted avg       0.97      0.98      0.97    118108 
+
+ნუ აქ precission ძალიან კარგი აქვს, მაგრამ recall დაუვარდა შესაბამისად დაბალი გამოუვიდა f1 score- ეს მოდელი საუკეთესოა ჯერჯერობით თუ ჩვენ precission გვაინტერესებს.
+
+მგონია რომ გაუმჯობესება შეიძლება მიტომ უფრო მეტ ჰიპერპარამეტრზე გავტესტავ ახლა
+ვცადოთ ასეთით 
+param_grid = {
+    'classifier__n_estimators': [100],  # Use more trees for better learning
+    'classifier__max_depth': [4, 6],  # Try deeper trees to capture complex patterns
+    'classifier__learning_rate': [0.1, 0.05],  # Try a slower learning rate
+    'classifier__scale_pos_weight': [20, 30],  # Increase weight for positive class
+    'classifier__min_child_weight': [1, 3],  # Control overfitting
+    'classifier__subsample': [0.8],  # Use subsampling to prevent overfitting
+    'classifier__colsample_bytree': [0.8]  # Use column subsampling
+} 
+აქ 48 fit დაჭირდება
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95    113975
+           1       0.26      0.76      0.39      4133
+
+    accuracy                           0.92    118108
+   macro avg       0.62      0.84      0.67    118108
+weighted avg       0.96      0.92      0.93    118108
+
+ამ ცდამ უფრო გააუარესა ამიტომ უფრო უკეთესი გზა იქნებ იყოს 
+ვცადოთ კიდევ:
+
+# Define hyperparameter grid focused on improving precision for minority class
+param_grid = {
+    'classifier__n_estimators': [200],  # Reduced options
+    'classifier__max_depth': [4, 6],  # Reduced options
+    'classifier__learning_rate': [0.01],  # Only one learning rate
+    'classifier__scale_pos_weight': [25, 35],  # Reduced options
+    'classifier__min_child_weight': [3],  # Only one option
+    'classifier__subsample': [0.8],  # Only one option
+    'classifier__colsample_bytree': [0.8],  # Only one option
+    'classifier__gamma': [0.1],  # Only one option
+    'classifier__reg_alpha': [0.1],  # Only one option
+    'classifier__reg_lambda': [1.0]  # Only one option
+}
+
+გავართულოთ პარამეტრები და გამოვიდა: Fitting 5 folds for each of 128 candidates, totalling 640 fits 
+კაი ხანი ლოდინი მოგვიწევს, ვნახოთ შედეგი რა იქნება:
+გავიდა 30 წუთი და შედეგი გაუმჯობესდა საგრძნობლად.
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.99      0.99    113975
+           1       0.68      0.60      0.64      4133
+
+    accuracy                           0.98    118108
+   macro avg       0.83      0.80      0.81    118108
+weighted avg       0.98      0.98      0.98    118108
+
+
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/8/runs/229c272df1ec46f9b7e97ded0942dc53
+
+ფაილი: IEEE-CIS-Fraud-Detection_xgboost.ipynb
+კაი ნუ პირველ xg boost -ს საუკეთესი precission აქვს ჯერჯერობით. მაგრამ ამას xgboost-ებში საუკეთესო f1 score აქვს და დაბალანსებულია ანუ ეს მოდელი საუკეთესოა.
+
+
+აქამდე რომ შევაჯამოთ 
+
+random forest-მა 
+  1       0.32      0.72      0.45      4133
+
+  მოგვცა კარგი recall - მაგრამ დაბალი precission ანუ ბევრ სწორი ტრანზაქციზე თქვა რომ froud იყო რაც ცუდია
+
+
+პირველად გაშვებულმა xgboost-მა 
+ 1       0.88      0.37      0.52      4133
+ მოგვცა ძალიან მაღალი precission მარა ძაან დაბალი recall რაც ნიშნავს იმას რომ ძალიან ბევრი შემთხვევა გამორჩა. ამიტომაც ესეც ცუდია
+
+ ჯერჯერრობით საუკეთესოა ბოლო მოდელი 
+   1       0.68      0.60      0.64      4133
+   ამ მოდელს recall და  precission დაბალანსებულად აქვთ რაც იწვევს დანარჩენ მოდელებზე უკეთეს f1 score-ს.
