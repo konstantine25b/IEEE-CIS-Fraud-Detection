@@ -51,6 +51,8 @@ id_12 - id_38
 
 მარა ვფიქრობ აქამდე რომ ჯერ დატა დავამუშავო რო მერე ცალ ცალკე გავტესტო ყველაზე ამიტო შემქმენი IEEE-CIS Fraud Detection_PreProcessing- სადაც პრე პროცესინგი იქნება.
 
+ფაილი : ieee-cis-fraud-detection-preprocessing.ipynb
+
 transactions - აქვს  394 columns ხოლო identity-ს 41 columns.
 
 ამათი პირდაპირ დაჯოინებით რაღაც დატას პრობლემები მგონია რო შეიქმენაბ ამიტომ ჯერ გავარკვვიოთ რა აქვთ საერთო და საერთოდ როგორებია.
@@ -230,6 +232,8 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 ახლა გავაკეთოთ პირველი ყველაზე მარტივი ექსპერიმენტი logistic_regression-ით.
 
+ფაილი : ieee-cis-fraud-logistic_regression.ipynb
+
 დავალოუდე მოდელი და შემდეგ მისი პრეპროცესინგის pipeline და ამის მერე 
 უკვე logistic regression გავუშვი
 
@@ -250,6 +254,8 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 იქიდან გამომდინარე რომ logistic regression- ით უკეთესი შედეგის დადებასც მგონია შესაძლებელი ამიტომ კიდე ვცდი
 ეხა regularization , scaling, kfold-ს დავამატებ და ვნახოთ რამდენად შეიცვლება შედეგი.
+
+ფაილი : ieee-cis-fraud-logistic_regression-2.ipynb
 
 logistic regression_2 ამ ფაილშიც იგივე ნაიურად წამოვიღებ დატას როგორც logistic regression , მაგრამ დავამუშავებ ასე:
 
@@ -277,4 +283,6 @@ weighted avg       0.95      0.77      0.84    118108
 ხოო ახლა წინა და ეს logistic_regression-ები რომ შევადაროთ:
 
 recall-ში მეორე ჯობია და დანარჩენებში fraud detection-ში კონკრეტულად თანაბარია ამიტომ მეორე ანუ ეს მოდელი ჯობია წინას.
+
+ახლა გავტესტოთ decision tree.
 
