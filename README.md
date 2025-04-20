@@ -318,3 +318,43 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 ახლა უკვე გადავიდეთ მოდელებზე რომნლებიც არადაბალანსებულ მონაცემებს ბევრად უკეთ უმკლავდებიან.
 დავიწყთ random forest-ით ანუ გამოვიყენოთ bagging მიდგომა
+
+ვაკეთებთ kfold classificationს და ასევე ჰიპერპარამეტრების მოსინჯვას 
+param_grid = {
+    'classifier__n_estimators': [50, 100],  # Number of trees
+    'classifier__max_depth': [10, 15],  # Max depth of trees
+    'classifier__class_weight': ['balanced', 'balanced_subsample']  # Class weight options
+}
+
+ხოო მოდელი დატრეინინგდა და აი შედეგი:
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.95      0.97    113975
+           1       0.32      0.72      0.45      4133
+
+    accuracy                           0.94    118108
+   macro avg       0.66      0.83      0.71    118108
+weighted avg       0.97      0.94      0.95    118108
+
+მოდელი ძალიან გაუმჯობესდა:
+ 1       0.32      0.72      0.45      4133
+
+
+precision - გაორმაგდა, თითქმის გაორმაგდა f1-score. მოცემულ არადაბალანსებულ მონაცემებში საკმაოდ კარგი შედეგია
+ნუ ჯერ გავტესტავ სხვადასხვა გზას და მერე ვნახავ სხვანაირ პრე პროცესინგებსაც.
+
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/4/runs/90ea34d328ae4a9eaeb7eae0d00335e3
+
+ფაილი: IEEE-CIS-Fraud-Detection_random_forest.ipynb
+
+ახლა კიდე დროა boosting- ზე გადავიდეთ და ჯერ გავტესტოთ adaboost.- ვნახოთ bagging-ზე უკეთესი შედეგი თუ ექნება.
+
+მარა სანამ გავტესტავ ჯერ დავფიქრეთ რომელს უფრო კარგი შედეგი უნდა ქონდეს bagging-ს თუ boosting-ს
+bagging- ვარიაციის შესამცირებლად ხოლო boosting bias-ის შესამცირებლად, რადგან ჩვენ ვეძეთ froud-ებს გვინდა რომ
+precission -იყოს მაღალი და ანუ რაც შეიძლება შევამციროთ bias. მაგრამ შეიძლება ბევრი outlier გვქონოდა და ამას
+random forest-ის უპირატესობა გამოეწვია. მარა მაინც boosting მგონია რო უკეთ იმუშაბვებს რადგან bias-ის შემცირებაა გვინდა.
+
+კაი ახლა გავტესტოთ adaboost:
+იგივენ ნაირი პრე პროცესინგი
