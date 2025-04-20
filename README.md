@@ -357,4 +357,30 @@ precission -იყოს მაღალი და ანუ რაც შეი
 random forest-ის უპირატესობა გამოეწვია. მარა მაინც boosting მგონია რო უკეთ იმუშაბვებს რადგან bias-ის შემცირებაა გვინდა.
 
 კაი ახლა გავტესტოთ adaboost:
-იგივენ ნაირი პრე პროცესინგი
+იგივენ ნაირი პრე პროცესინგი, 
+ეს კიდე ჰიპერ პარამეტრები:
+param_grid = {
+    'classifier__n_estimators': [50, 100],  # Number of boosting stages
+    'classifier__learning_rate': [0.1, 0.5],  # Learning rate shrinks the contribution of each classifier
+    'classifier__base_estimator__class_weight': ['balanced']  # Class weight for the base estimator
+}
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.85      0.92    113975
+           1       0.16      0.77      0.26      4133
+
+    accuracy                           0.85    118108
+   macro avg       0.57      0.81      0.59    118108
+weighted avg       0.96      0.85      0.89    118108
+
+ხოო აქ გაუარესდა და random forest-მა აჯობა, ხოლო ამან ოდნავ აჯობა decision_tree-ს
+ნუ როგორც ჩანს ან კომპლექსურობა აკლია ამ მოდელს ან ოვერფიტში წავიდა ან მონაცემებში დიდი ვარიაციია და მაგიტო აჯობა bagging-ის მიდგომამ. მარა ამის რეალურად გასაგებად გავტესტოთ უფრო კომპლექსური მოდელი xgboost
+
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/7/runs/c8a726876efd40939c7008d2c993db6a
+
+ფაილი: IEEE-CIS-Fraud-Detection_adaboost.ipynb
+
+დავიწყოთ xgboost-ის გატესტვა
+იგივე ნაირად დავამუშავეთ მონაცემები
