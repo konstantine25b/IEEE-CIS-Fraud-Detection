@@ -286,3 +286,34 @@ recall-ში მეორე ჯობია და დანარჩენე
 
 ახლა გავტესტოთ decision tree.
 
+ფაილი: ieee-cis-fraud-detection-decision-tree.ipynb
+
+იგივე ნაირად გავუკეთეთ პრე პროცესინგი და ახლა მინეცით რამდენიმე ჰიპერ პარამეტრი და კროს ვალიდაციით ვიპოვეთ
+საუკეთესო:
+param_grid = {
+    'classifier__max_depth': [5, 10],  
+    'classifier__min_samples_split': [10],  
+    'classifier__class_weight': ['balanced'] 
+}
+
+შედეგად 
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.84      0.91    113975
+           1       0.15      0.77      0.25      4133
+
+    accuracy                           0.84    118108
+   macro avg       0.57      0.80      0.58    118108
+weighted avg       0.96      0.84      0.89    118108
+
+
+logistic_regression ზე ბევრად უფრო კარგად იმუშავა 
+თითოეულ კომპონენტში უფრო კარგი შედეგი აქ 
+precision  0.05 ით გავაუმჯობესეთ, recall 0.12  ხოლო f1-score 0.08 ით 
+
+ნუ decision tree-იც ცუდად მუშაობს მაგრამ ბევრად ჯობია წინებს.
+
+ახლა უკვე გადავიდეთ მოდელებზე რომნლებიც არადაბალანსებულ მონაცემებს ბევრად უკეთ უმკლავდებიან.
+დავიწყთ random forest-ით ანუ გამოვიყენოთ bagging მიდგომა
