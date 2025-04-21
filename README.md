@@ -722,5 +722,13 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 ხოლო ფაილი: model_inference.ipynb
 
+ამით დასრულდა ექსპერიმენტი ეხა საბმიშენებს შევიტან kaggle-ზე და ვნახოთ შედეგი:
+
+xgboost_submission.csv -აქ არის ჩვენი predictions.
+
+აი ჩვენი შედეგი 
+
+Score: 0.915037
+Private score: 0.870182 
 
 და ამით დასრულდა 
