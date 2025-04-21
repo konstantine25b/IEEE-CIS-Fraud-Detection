@@ -607,4 +607,92 @@ Non-fraud: 436962 (97.91%)
 როგორც ვფიქრობდით identity სვეტი მნიშვნელობვანია რადგან აქ ვისაც identity აქვს მანდ უფრო მეტია განაწილება.
 ასეთი აზრი მაქვს რომ გავყო მონაცემები ანუ ერტი db სადაც იქნებიან identiry + transactions და მეორე მხოლოდ transactions ასე უფრო ლოგიკურად იქნება წესით დატრეინგება შესაძლებელი.
 
-წინა ექსპერიმენტებიდან გამომდინარე ვიზავს ასე ჯერ high null column-ებს მოვაშორებ - 20% ზე მაღლები identityდან ხოლო 60% ზე მაღლები transactions, ამ
+წინა ექსპერიმენტებიდან გამომდინარე ვიზავს ასე ჯერ high null column-ებს მოვაშორებ - 20% ზე მაღლები identityდან ხოლო 60% ზე მაღლები transactions, ამ 
+
+
+--- Splitting Data into Train and Validation Sets ---
+With identity - Training set: (115386, 247), Validation set: (28847, 247)
+Without identity - Training set: (357045, 226), Validation set: (89262, 226)
+
+მივიღეთ ასეთი შედეგი ნუ ალბათ აქ უკეთესად უნდა იყოს დატრეინგება შესაძლებელი.
+
+--- Fitting and Transforming Data ---
+
+Processing WITH identity data...
+Processed WITH identity - Train: (115386, 2121), Val: (28847, 2121)
+
+Processing WITHOUT identity data...
+Processed WITHOUT identity - Train: (357045, 299), Val: (89262, 299)
+
+ანუ ეს იმიტომ რომ მხოლოდ onehotზე მქონდა მარა ჯობია >=4 ze woe იყოს
+ამიტო შევცვლი და ჩავამატებ woe-ს:
+
+კაი ჩავამატე woe და ახლა არის ასე:
+
+--- Fitting and Transforming Data ---
+Processing WITH identity data...
+Processed WITH identity - Train: (115386, 239), Val: (28847, 239)
+
+Processing WITHOUT identity data...
+Processed WITHOUT identity - Train: (357045, 236), Val: (89262, 236)
+
+ესე ბევრად უკეთესად არის
+
+--- Fraud Rate Analysis ---
+Fraud rate in transactions WITH identity: 7.85%
+Fraud rate in transactions WITHOUT identity: 2.09%
+Fraud rate difference: 5.75%
+
+დამუშავებას მოვრჩით ახლა, xgboost გავუშვათ და ვნახოთ როგორ დაამუშავებს
+ეს არის ტრეინინგის შედეგი  with_identity_model-ისთვის
+Results:
+Train AUC: 0.9993
+Validation AUC: 0.9788
+Train Average Precision: 0.9911
+Validation Average Precision: 0.9057
+
+ხოლო ეს არიას შედეგი without_identity_model-ისთვის
+without_identity_model Results:
+Train AUC: 0.9999
+Validation AUC: 0.9572
+Train Average Precision: 0.9964
+Validation Average Precision: 0.7537
+
+
+აშკარად identity მონაცემებს დიდი მნიშვნელობა აქვთ
+
+--- Individual Model Comparison ---
+WITH identity model - Validation AUC: 0.9788, AP: 0.9057
+WITHOUT identity model - Validation AUC: 0.9572, AP: 0.7537
+The WITH identity model performs better in terms of AUC.
+The WITH identity model performs better in terms of Average Precision.
+
+გავაერთიანოთ ახლა 
+Best threshold based on F1 score: 0.70
+
+--- Combined Model Performance (at optimal threshold) ---
+Precision: 0.8352
+Recall: 0.7457
+F1 Score: 0.7879
+ROC AUC: 0.9701
+Average Precision: 0.8399
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.99      0.99    113976
+           1       0.84      0.75      0.79      4133
+
+    accuracy                           0.99    118109
+   macro avg       0.91      0.87      0.89    118109
+weighted avg       0.99      0.99      0.99    118109
+
+ეს ყველაზე მაგარი მოდელი გამოვიდა 
+1       0.84      0.75      0.79      4133
+ყველაზე დიდი f1 score ამას აქვს ამიტომ ეს იქნება ჩვენი საბოლოო მოდელი.
+
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/10/runs/e75d3cbbcd19426cbe1403e0816c2a80
+
+ფაილი: IEEE-CIS Fraud Detection_XGBoost_2.ipynb
+
+
