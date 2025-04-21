@@ -579,4 +579,32 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 ფაილი:IEEE-CIS Fraud Detection_Transaction_Only.ipynb
 
-ნუ ამით დავასტულოთ მხოლოდ transactions db ის გამოყენება
+ნუ ამით დავასრულოთ მხოლოდ transactions db ის გამოყენება
+
+კაი ახლა ისევ დავუბრუნდეთ ამ მონაცემების დამერჯვა ასეთი იდეა მაქვს, რომ ჯერ გავაერთიანო დ
+
+
+--- Fraud Distribution Analysis ---
+Total transactions: 590540
+Fraud transactions: 20663 (3.50%)
+Non-fraud transactions: 569877 (96.50%)
+
+
+--- Identity Information Analysis ---
+Transactions with identity information: 144233
+Percentage of transactions with identity info: 24.42%
+
+Fraud distribution for transactions WITH identity information:
+Total: 144233
+Fraud: 11318 (7.85%)
+Non-fraud: 132915 (92.15%)
+
+Fraud distribution for transactions WITHOUT identity information:
+Total: 446307
+Fraud: 9345 (2.09%)
+Non-fraud: 436962 (97.91%)
+
+როგორც ვფიქრობდით identity სვეტი მნიშვნელობვანია რადგან აქ ვისაც identity აქვს მანდ უფრო მეტია განაწილება.
+ასეთი აზრი მაქვს რომ გავყო მონაცემები ანუ ერტი db სადაც იქნებიან identiry + transactions და მეორე მხოლოდ transactions ასე უფრო ლოგიკურად იქნება წესით დატრეინგება შესაძლებელი.
+
+წინა ექსპერიმენტებიდან გამომდინარე ვიზავს ასე ჯერ high null column-ებს მოვაშორებ - 20% ზე მაღლები identityდან ხოლო 60% ზე მაღლები transactions, ამ
