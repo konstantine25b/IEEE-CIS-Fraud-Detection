@@ -549,7 +549,7 @@ weighted avg       0.96      0.97      0.96    118108
 
 ეს მოდელინ საკმაოდ სუსტია სხვა კომპლექსურ მოდელებთან შედარბით.  მარა მაინც აქ ცოტა ჰიპერ პარამეტრი იყო ამიტო მოდი კიდე ვცდი უფრო მეტი ჰიპერ პატამეტრით.
 
-# Fraud_Detection_Transaction_Only 2
+# Fraud_Detection_Transaction_Only 2- THE BEST MODEL
 
 param_grid = {
     'classifier__n_estimators': [100, 200],
@@ -695,4 +695,32 @@ https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments
 
 ფაილი: IEEE-CIS Fraud Detection_XGBoost_2.ipynb
 
+# model inference
 
+ახლა დავიწყოთ უკვე ბოლო IEEE-CIS Fraud Detection_XGBoost_2.ipynb-ამ ჩემთვის საუკეთესო მოდელის
+გაშვება ტესტსეტზე.
+
+ჯერ ჩამოვტვირთე მოდელი და ახალ ტესტსეტებს ვუკეთებს პრე პროცესინგს ცალ ცალკე:
+--- Splitting Test Data ---
+Test WITH identity: (141907, 394)
+Test WITHOUT identity: (364784, 394)
+
+
+
+--- Preparing Features for Prediction ---
+Preparing features for WITH identity data...
+WITH identity features shape: (141907, 245)
+Preparing features for WITHOUT identity data...
+WITHOUT identity features shape: (364784, 224)
+
+გავაკეთე pipeline-ით pre processing ასევე გავაკეთე prediction და შემდეგ 
+with და without identity ების prediction-ები შევაწებე
+Submission file saved to xgboost_submission.csv
+Final submission shape: (506691, 2)
+
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/11/runs/8188aa4042a84ba88273678c8f59b5ed
+
+ხოლო ფაილი: model_inference.ipynb
+
+
+და ამით დასრულდა 
