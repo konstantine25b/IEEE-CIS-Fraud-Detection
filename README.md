@@ -689,15 +689,75 @@ weighted avg       0.99      0.99      0.99    118109
 
 ეს ყველაზე მაგარი მოდელი გამოვიდა 
 1       0.84      0.75      0.79      4133
-ყველაზე დიდი f1 score ამას აქვს ამიტომ ეს იქნება ჩვენი საბოლოო მოდელი.
+ყველაზე დიდი f1 score ამას აქვს ჯერჯერობით.
 
 https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/10/runs/e75d3cbbcd19426cbe1403e0816c2a80
 
 ფაილი: IEEE-CIS Fraud Detection_XGBoost_2.ipynb
 
+
+
+# Fraud_Detection_Transaction_Only 3
+
+ახლა კი ბევრი ვიწვალეთ და მოდი ავაწყვოთ საბოლოო მოდელი
+წინა მოდელი საკამოდ კარგ შედეგს დებდა ამიტომ corr და RFE რომ დავამატო მგონია რომ უკეთეს შედეგს დადებს
+გავაკეთებ ზუსტად იგივეს ოღონდ დავუმატებ მაგათ
+
+ორივეგან: 
+კორელაციის threshold იყოს 0.8
+ხოლო RFE სთვის n_features_to_select=100, step=5.
+
+
+with_identity_model Results:
+Train AUC: 0.9996
+Validation AUC: 0.9773
+Train Average Precision: 0.9948
+Validation Average Precision: 0.8972
+
+ნუ დაახლოებით იგივეა როგორც წინა - ნუ Validation Average Precision gauaresda 0.01-ით
+
+without_identity_model Results:
+Train AUC: 0.9999
+Validation AUC: 0.9545
+Train Average Precision: 0.9946
+Validation Average Precision: 0.7332
+
+ნუ ესეც დაახლოებით იგივეა როგორც წინა - ნუ აქაც Validation Average Precision gauaresda 0.15-ით
+
+Performance at different thresholds:
+Threshold | Precision | Recall | F1 Score | Accuracy
+----------|-----------|--------|----------|----------
+0.1       | 0.2256    | 0.9214 | 0.3624   | 0.8866
+0.2       | 0.3493    | 0.8836 | 0.5007   | 0.9383
+0.3       | 0.4615    | 0.8568 | 0.5999   | 0.9600
+0.4       | 0.5666    | 0.8248 | 0.6717   | 0.9718
+0.5       | 0.6628    | 0.7951 | 0.7229   | 0.9787
+0.6       | 0.7477    | 0.7658 | 0.7566   | 0.9828
+0.7       | 0.8256    | 0.7251 | 0.7721   | 0.9850
+0.8       | 0.8914    | 0.6789 | 0.7708   | 0.9859
+0.9       | 0.9456    | 0.5974 | 0.7322   | 0.9847
+
+Best threshold based on F1 score: 0.70
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.99      0.99    113976
+           1       0.83      0.73      0.77      4133
+
+    accuracy                           0.99    118109
+   macro avg       0.91      0.86      0.88    118109
+weighted avg       0.98      0.99      0.98    118109
+
+ნუ აღმოჩნდა რომ კორელაციის და RFE-ის გარეშე უკეთესი შედეგი დადო- ჩემი აზრით უბრალოდ ოპტიმალური RFE-ის რაოდენობა უფრო მეტია 100-ზე და მაგიტომ მაგრამ შეიძლება სხვა მიზეზიც იყოს, ნუ გატესტვებმა და RFE-ების დარანვებმა ძალიან დიდი დრო წაიღო ამიტომ საუკეთესო ექსპერიმენტად მაინც წინას ავირჩევ
+
+https://dagshub.com/konstantine25b/IEEE-CIS-Fraud-Detection.mlflow/#/experiments/12/runs/e2853023b2fd4ff7a694fecbfd6c586b
+
+ფაილი: IEEE-CIS Fraud Detection_XGBoost_3.ipynb
+
 # model inference
 
-ახლა დავიწყოთ უკვე ბოლო IEEE-CIS Fraud Detection_XGBoost_2.ipynb-ამ ჩემთვის საუკეთესო მოდელის
+ახლა დავიწყოთ უკვე IEEE-CIS Fraud Detection_XGBoost_2.ipynb-ამ ჩემთვის საუკეთესო მოდელის
 გაშვება ტესტსეტზე.
 
 ჯერ ჩამოვტვირთე მოდელი და ახალ ტესტსეტებს ვუკეთებს პრე პროცესინგს ცალ ცალკე:
